@@ -10,5 +10,11 @@
 	<true/>
 	<key>KeepAlive</key>
 	<true/>
+	<key>StandardOutPath</key>
+	<string>/var/log/jenkins-slave-log</string>
+	<key>StandardErrorPath</key>
+	<string>/var/log/jenkins-slave-log</string>
+	<key>Debug</key>
+	<true/>
 </dict>
 </plist>
