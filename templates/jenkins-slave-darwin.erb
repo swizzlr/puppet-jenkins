@@ -1,3 +1,3 @@
 #!/bin/sh
 
-java -jar <%= @slave_home -%>/<%= @client_jar -%> <%= @ui_user_flag -%> <%= @ui_pass_flag -%> -mode <%= @slave_mode -%> -name <%= @fqdn || @hostname -%> -executors <%= @executors -%> <%= @masterurl_flag -%> <%= @labels_flag -%> <%= @disable_ssl_verification_flag -%>  <%= @fsroot_flag -%>
+su - <%= @slave_user -%> -c 'java -jar <%= @slave_home -%>/<%= @client_jar -%> <%= @ui_user_flag -%> <%= @ui_pass_flag -%> -mode <%= @slave_mode -%> -name <%= @fqdn || @hostname -%> -executors <%= @executors -%> <%= @masterurl_flag -%> <%= @labels_flag -%> <%= @disable_ssl_verification_flag -%>  <%= @fsroot_flag -%>'
