@@ -194,7 +194,7 @@ class jenkins::slave (
         mode    => '0700',
         owner   => 'root',
         group   => 'root',
-        source => "${module_name}/jenkins-launchd.plist",
+        source => "puppet:///modules/jenkins/jenkins-launchd.plist",
         notify  => Service['jenkins-slave'],
       }
     }
