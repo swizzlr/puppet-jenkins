@@ -189,12 +189,13 @@ class jenkins::slave (
         notify  => Service['jenkins-slave'],
       }
 
-      file { '/Library/LaunchAgents/jenkins-launchd.plist':
+      file { '/Library/LaunchDaemons/jenkins-launchd.plist':
         ensure  => 'file',
         mode    => '0700',
         owner   => 'root',
         group   => 'root',
         source => "puppet:///modules/jenkins/jenkins-launchd.plist",
+        require => File['/usr/local/bin/jenkins-slave'],
         notify  => Service['jenkins-slave'],
       }
     }
