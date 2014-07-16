@@ -179,6 +179,25 @@ class jenkins::slave (
         ensure => present,
       }
     }
+    Darwin: {
+      file { '/usr/local/bin/jenkins-slave':
+        ensure  => 'file',
+        mode    => '0700',
+        owner   => 'root',
+        group   => 'root',
+        content => template("${module_name}/jenkins-slave.erb"),
+        notify  => Service['jenkins-slave'],
+      }
+
+      file { '/Library/LaunchAgents/jenkins-launchd.plist':
+        ensure  => 'file',
+        mode    => '0700',
+        owner   => 'root',
+        group   => 'root',
+        content => "${module_name}/jenkins-launchd.plist",
+        notify  => Service['jenkins-slave'],
+      }
+    }
     default: {
       file { '/etc/init.d/jenkins-slave':
         ensure  => 'file',
