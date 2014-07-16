@@ -185,7 +185,7 @@ class jenkins::slave (
         mode    => '0700',
         owner   => 'root',
         group   => 'root',
-        content => template("${module_name}/jenkins-slave.erb"),
+        content => template("${module_name}/jenkins-slave-darwin.erb"),
         notify  => Service['jenkins-slave'],
       }
 
