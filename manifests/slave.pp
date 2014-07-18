@@ -186,7 +186,7 @@ class jenkins::slave (
         owner   => 'root',
         group   => 'root',
         content => template("${module_name}/jenkins-slave-darwin.erb"),
-        require => Exec['get-swarm-client'],
+        require => Exec['get_swarm_client'],
         notify  => Exec['enable-darwin-slave'],
       }
 
