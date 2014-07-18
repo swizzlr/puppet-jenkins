@@ -186,6 +186,7 @@ class jenkins::slave (
         owner   => 'root',
         group   => 'root',
         content => template("${module_name}/jenkins-slave-darwin.erb"),
+        require => Exec['get-swarm-client'],
         notify  => Exec['enable-darwin-slave'],
       }
 
@@ -236,10 +237,6 @@ class jenkins::slave (
       }
     }
   }
-
-
-  Exec['get_swarm_client']
-  -> Service['jenkins-slave']
 
   if $install_java {
       Class['java'] ->
