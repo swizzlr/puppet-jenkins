@@ -183,16 +183,16 @@ class jenkins::slave (
       file { '/usr/local/bin/jenkins-slave':
         ensure  => 'file',
         mode    => '0700',
-        owner   => 'root',
+        owner   => 'vagrant',
         group   => 'root',
         content => template("${module_name}/jenkins-slave-darwin.erb"),
         notify  => Service['jenkins-slave'],
       }
 
-      file { '/Library/LaunchDaemons/jenkins-launchd.plist':
+      file { '/Users/vagrant/Library/LaunchAgents/jenkins-launchd.plist':
         ensure  => 'file',
         mode    => '0700',
-        owner   => 'root',
+        owner   => 'vagrant',
         group   => 'root',
         source => "puppet:///modules/jenkins/jenkins-launchd.plist",
         require => File['/usr/local/bin/jenkins-slave'],
