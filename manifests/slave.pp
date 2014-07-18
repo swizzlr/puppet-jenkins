@@ -183,25 +183,19 @@ class jenkins::slave (
       file { '/usr/local/bin/jenkins-slave':
         ensure  => 'file',
         mode    => '0700',
-        owner   => 'root',
+        owner   => 'vagrant',
         group   => 'root',
         content => template("${module_name}/jenkins-slave-darwin.erb"),
         require => Exec['get_swarm_client'],
-        notify  => Exec['enable-darwin-slave'],
       }
 
-      file { '/Library/LaunchAgents':
-        ensure => 'directory',
-      }
-
-      file { '/Library/LaunchAgents/jenkins-launchd.plist':
+      file { '/Users/vagrant/Desktop/Start Jenkins Slave.command':
         ensure  => 'file',
         mode    => '0700',
-        owner   => 'root',
+        owner   => 'vagrant',
         group   => 'root',
-        source => "puppet:///modules/jenkins/jenkins-launchd.plist",
-        require => [File['/usr/local/bin/jenkins-slave'], File['/Library/LaunchAgents']],
-        notify  => Exec['enable-darwin-slave'],
+        source => "puppet:///modules/jenkins/Start Jenkins Slave.command",
+        require => File['/usr/local/bin/jenkins-slave'],
       }
     }
     default: {
@@ -218,16 +212,7 @@ class jenkins::slave (
 
 
   case $::osfamily {
-    Darwin: {
-      exec { 'enable-darwin-slave':
-        command => 'launchctl load /Users/vagrant/Library/LaunchAgents/com.jenkins.slave',
-        user => 'vagrant',
-        path => '/usr/bin',
-        unless => ['launchctl list | grep com.jenkins.slave'],
-        refresh => 'launchctl unload /Users/vagrant/Library/LaunchAgents/com.jenkins.slave; launchctl load /Users/vagrant/Library/LaunchAgents/com.jenkins.slave',
-        require => File['/Library/LaunchAgents/jenkins-launchd.plist'],
-      }
-    }
+    Darwin: {}
     default: {
       service { 'jenkins-slave':
         ensure     => running,
