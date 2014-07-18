@@ -189,13 +189,17 @@ class jenkins::slave (
         notify  => Service['jenkins-slave'],
       }
 
+      file { '/Users/vagrant/Library/LaunchAgents':
+        ensure => 'directory',
+      }
+
       file { '/Users/vagrant/Library/LaunchAgents/jenkins-launchd.plist':
         ensure  => 'file',
         mode    => '0700',
         owner   => 'vagrant',
         group   => 'root',
         source => "puppet:///modules/jenkins/jenkins-launchd.plist",
-        require => File['/usr/local/bin/jenkins-slave'],
+        require => [File['/usr/local/bin/jenkins-slave'], File['/Users/vagrant/Library/LaunchAgents']],
         notify  => Service['jenkins-slave'],
       }
     }
