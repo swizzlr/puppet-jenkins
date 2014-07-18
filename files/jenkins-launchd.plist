@@ -7,7 +7,7 @@
 	<key>ProgramArguments</key>
 	<array>
 		<string>open</string>
-		<string>-a Terminal.app</string>
+		<string>-a /Applications/Utilities/Terminal.app</string>
 		<string>/usr/local/bin/jenkins-slave</string>
 	</array>
 	<key>RunAtLoad</key>
